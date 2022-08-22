@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
-  const [activeType, setActiveType] = useState(0);
-  const [activeSize, setActiveSize] = useState(0);
+  const [activeType, setActiveType] = React.useState(0);
+  const [activeSize, setActiveSize] = React.useState(0);
   const typeNames = ['тонкое', 'традиционное'];
+
+  const onClickTypes = (id) => {
+    setActiveType(id);
+  };
+
+  const onClickSizes = (i) => {
+    setActiveSize(i);
+  };
 
   return (
     <div className='pizza-block'>
@@ -14,7 +22,7 @@ const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
           {types.map((typeId) => (
             <li
               key={typeId}
-              onClick={() => setActiveType(typeId)}
+              onClick={() => onClickTypes(typeId)}
               className={activeType === typeId ? 'active' : ''}
             >
               {typeNames[typeId]}
@@ -25,7 +33,7 @@ const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
           {sizes.map((size, i) => (
             <li
               key={i}
-              onClick={() => setActiveSize(i)}
+              onClick={() => onClickSizes(i)}
               className={activeSize === i ? 'active' : ''}
             >
               {size} см.
