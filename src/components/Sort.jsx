@@ -29,6 +29,7 @@ const Sort = () => {
         <b>Сортировка по:</b>
         <span onClick={() => setOpen(!open)}>{sortName}</span>
       </div>
+
       {open && (
         <div className='sort__popup'>
           <ul>
