@@ -21,6 +21,44 @@
     }
   }
 
+  &__asc {
+    margin-right: 5px;
+    padding: 5px 7px;
+
+    background-color: $orange;
+    border-radius: 30px;
+    border: 1px solid transparent;
+
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: darken($orange, 8%);
+    }
+  }
+
+  &__desc {
+    margin-right: 5px;
+    padding: 5px 7px;
+
+    background-color: $orange;
+    border-radius: 30px;
+    border: 1px solid transparent;
+
+    cursor: pointer;
+    color: #fff;
+
+    transform: scaleY(-1);
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: darken($orange, 8%);
+    }
+  }
+
   &__popup {
     position: absolute;
     right: 0;
