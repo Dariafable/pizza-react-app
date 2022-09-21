@@ -1,4 +1,5 @@
 import React from 'react';
+import { SearchContext } from '../App';
 
 /* import { setCategoryId } from '../redux/slice/filterSlice'; */
 import Categories from '../components/Categories';
@@ -7,10 +8,11 @@ import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   /*  const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
   console.log(categoryId); */
+  const { searchValue } = React.useContext(SearchContext);
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
