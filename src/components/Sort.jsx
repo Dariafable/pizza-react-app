@@ -11,8 +11,7 @@ const list = [
 
 const Sort = () => {
   const dispatch = useDispatch();
-  const sort = useSelector((state) => state.filter.sort);
-  const order = useSelector((state) => state.filter.sortOrder);
+  const { sort, sortOrder } = useSelector((state) => state.filter);
 
   const [open, setOpen] = React.useState(false);
 
@@ -28,7 +27,10 @@ const Sort = () => {
   return (
     <div className='sort'>
       <div className='sort__label'>
-        <button className={order ? 'sort__asc' : 'sort__desc'} onClick={() => onClickOrder(!order)}>
+        <button
+          className={sortOrder ? 'sort__asc' : 'sort__desc'}
+          onClick={() => onClickOrder(!sortOrder)}
+        >
           ↓
         </button>
         <b>Сортировка по:</b>
