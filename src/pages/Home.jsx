@@ -12,20 +12,19 @@ import Sort from '../components/Sort';
 const Home = () => {
   //Filter
   const dispatch = useDispatch();
-  const { categoryId, sort } = useSelector((state) => state.filter);
+  const { categoryId, sort, sortOrder } = useSelector((state) => state.filter);
 
-  const sortType = sort.sortProperty;
+  // Context (temporarily)
   const { searchValue } = React.useContext(SearchContext);
 
-  // States
+  // States  (temporarily))
   const [items, setItems] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(true);
-  const [sortOrder, setSortOrder] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
 
-  // Consitions for api request
+  // Conditions for api request
   const category = categoryId > 0 ? `category=${categoryId}` : '';
-  const sortBy = sortType;
+  const sortBy = sort.sortProperty;
   const order = sortOrder ? `asc` : `desc`;
   const search = searchValue ? `${searchValue}` : '';
 
@@ -33,7 +32,7 @@ const Home = () => {
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
-  //Filter function
+  //Filter category-function
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
   };
@@ -49,13 +48,13 @@ const Home = () => {
         setIsLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType, sortOrder, searchValue, currentPage]);
+  }, [categoryId, sort.sortProperty, sortOrder, searchValue, currentPage]);
 
   return (
     <div className='container'>
       <div className='content__top'>
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
-        <Sort order={sortOrder} onChangeSortOrder={(i) => setSortOrder(i)} />
+        <Sort />
       </div>
       <h2 className='content__title'>Все пиццы</h2>
       <div className='content__items'>{isLoading ? skeletons : pizzas}</div>

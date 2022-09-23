@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setSort } from '../redux/slice/filterSlice';
+import { setSort, setSortOrder } from '../redux/slice/filterSlice';
 
 const list = [
   { name: 'популярности', sortProperty: 'rating' },
@@ -9,10 +9,10 @@ const list = [
   { name: 'алвафиту', sortProperty: 'title' },
 ];
 
-const Sort = ({ order, onChangeSortOrder }) => {
+const Sort = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
-  /*  const order = useSelector((state) => state.filter.sort); */
+  const order = useSelector((state) => state.filter.sortOrder);
 
   const [open, setOpen] = React.useState(false);
 
@@ -22,7 +22,7 @@ const Sort = ({ order, onChangeSortOrder }) => {
   };
 
   const onClickOrder = (i) => {
-    onChangeSortOrder(i);
+    dispatch(setSortOrder(i));
   };
 
   return (
