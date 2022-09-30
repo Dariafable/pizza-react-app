@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { SearchContext } from '../App';
 
@@ -22,12 +23,6 @@ const Home = () => {
   const [isLoading, setIsLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
 
-  // Conditions for api request
-  const category = categoryId > 0 ? `category=${categoryId}` : '';
-  const sortBy = sort.sortProperty;
-  const order = sortOrder ? `asc` : `desc`;
-  const search = searchValue ? `${searchValue}` : '';
-
   // Pizzas render (in const)
   const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
@@ -39,14 +34,22 @@ const Home = () => {
 
   React.useEffect(() => {
     setIsLoading(true);
-    fetch(
-      `https://6304d4bc761a3bce77f0a0d5.mockapi.io/Items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&search=${search}`
-    )
-      .then((res) => res.json())
-      .then((arr) => {
-        setItems(arr);
+
+    // Conditions for api request
+    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const sortBy = sort.sortProperty;
+    const order = sortOrder ? `asc` : `desc`;
+    const search = searchValue ? `${searchValue}` : '';
+
+    axios
+      .get(
+        `https://6304d4bc761a3bce77f0a0d5.mockapi.io/Items?page=${currentPage}&limit=4&${category}&sortBy=${sortBy}&order=${order}&search=${search}`
+      )
+      .then((res) => {
+        setItems(res.data);
         setIsLoading(false);
       });
+
     window.scrollTo(0, 0);
   }, [categoryId, sort.sortProperty, sortOrder, searchValue, currentPage]);
 
